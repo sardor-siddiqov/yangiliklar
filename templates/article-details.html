@@ -1,0 +1,126 @@
+{% extends "base.html"%}
+{% block content %}
+
+
+        <!-- Single Product Start -->
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <ol class="breadcrumb justify-content-start mb-4">
+                    <li class="breadcrumb-item"><a href="{% url 'home' %}">Bosh sahifa</a></li>
+                    <li class="breadcrumb-item"><a href="">{{ article.category.name }}</a></li>
+                    <li class="breadcrumb-item active text-dark">{{article.title | truncatechars:32}}</li>
+                </ol>
+                <div class="row g-4">
+                    <div class="col-lg-0"><</div>
+                    <div class="col-lg-10">
+                        <div class="mb-4">
+                            <a href="#" class="h1 display-5">{{article.title}}</a>
+                        </div>
+                        <div class="col-lg-10 mx-auto position-relative rounded overflow-hidden mb-3 mx-auto">
+                            <img src="{{article.cover.url}}" class="img-zoomin img-fluid rounded w-80" alt="">
+                            <div class="position-absolute text-white px-4 py-2 bg-primary rounded" style="top: 20px; right: 150px;">
+                                {{article.category}}
+                            </div>
+                        </div>
+                        <div class="col-lg-10 mx-auto d-flex justify-content-between">
+                            <a href="#" class="text-dark link-hover me-3"><i class="fa fa-clock"></i> {{article.read_time}}</a>
+                            <a href="#" class="text-dark link-hover me-3"><i class="fa fa-eye"></i> {{article.views}}</a>
+                            <a href="#" class="text-dark link-hover me-3"><i class="fa fa-comment-dots"></i> {{ article.comment_set.count}}ta izoh</a>
+                            <a href="#" class="text-dark link-hover"><i class="fa fa-calendar"></i> {{ article.created_at|date:"d.m.Y"}}</a>
+                        </div>
+                        {% for context in article.context_set.all %}
+                            {% if context.text %}
+                                <p class="my-4">
+                                    {{context.text}}
+                                </p>
+                            {% endif %}
+                            {% if context.image%}
+                                <div class="row g-4 mb-4">
+                            <div class="col-12">
+                                <div class="rounded overflow-hidden">
+                                    <img src="{{context.image.url}}" class="img-zoomin img-fluid rounded w-100" alt="">
+                                </div>
+                            </div>
+                        </div>
+                            {% endif %}
+                        {% endfor%}
+                        <div class="tab-class">
+                            <div class="d-flex justify-content-between border-bottom mb-4">
+                                <ul class="nav nav-pills d-inline-flex text-center">
+                                    <li class="nav-item mb-3">
+                                        <h5 class="mt-2 me-3 mb-0">Taglar:</h5>
+                                    </li>
+                                    {% for tag in article.tags.all%}
+                                    <li class="nav-item mb-3">
+                                        <a class="d-flex py-2 bg-light rounded-pill active me-2" data-bs-toggle="pill" href="#tab-1">
+                                            <span class="text-dark" style="width: 100px;">{{tag.name}}</span>
+                                        </a>
+                                    </li>
+                                    {% endfor%}
+                                </ul>
+                            </div>
+                        </div>
+                        {% if like_articles%}
+                            <div class="bg-light rounded my-4 p-4">
+                            <h4 class="mb-4">O'xshash yangiliklar</h4>
+                            <div class="row g-4">
+                                {% for a in like_articles%}
+                                    <div class="col-lg-6">
+                                    <div class=" d-flex align-items-center p-3 bg-white rounded">
+                                        <img src="{{a.cover.url}}" class="col-lg-4 img-fluid rounded" alt="">
+                                        <div class="ms-3">
+                                            <a href="#" class="h5 mb-2">{{a.title | truncatechars:45}}</a>
+                                            <p class="text-dark mt-3 mb-0 me-3"><i class="fa fa-clock"></i> {{a.read_time}}daqiqa o'qiladi</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {%endfor%}
+                            </div>
+                        </div>
+                        {% endif %}
+                            <h4 class="mb-4">Izohlar</h4>
+                        {% for comment in article.comment_set.all%}
+                            <div class="p-4 bg-white rounded mb-4">
+                                <div class="row g-4">
+                                    <div class="col-9">
+                                        <div class="d-flex justify-content-between">
+                                            <h5>{{comment.name}}</h5>
+                                        </div>
+                                        <small class="text-body d-block mb-3"><i class="fas fa-calendar-alt me-1"></i>
+                                            {{comment.created_at| date:"d.m.Y"}}
+                                        </small>
+                                        <p class="mb-0">
+                                            {{comment.text}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                        </div>
+                        <div class="bg-light rounded p-4 my-4">
+                            <h4 class="mb-4">Fikringizni bildiring</h4>
+                            <form action="/comment_create/{{article.slug}}" method="post">
+                                {% csrf_token%}
+                                <div class="row g-4">
+                                    <div class="col-lg-6">
+                                        <input type="text" name="name" class="form-control py-3" placeholder="Ismingizni kiriting">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="email" name="email" class="form-control py-3" placeholder=" Pochta manzilingizni kiriting">
+                                    </div>
+                                    <div class="col-12">
+                                        <textarea class="form-control" name="text" id="" cols="30" rows="7" placeholder="Fikrlaringizni kiriting"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="form-control btn btn-primary py-3" type="submit">Yuborish</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Single Product End -->
+{% endblock %}
+

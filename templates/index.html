@@ -1,0 +1,140 @@
+{% extends 'base.html'%}
+
+{% block content %}
+        <!-- Banner Start -->
+        <div class="container-fluid py-5 my-5" style="background: linear-gradient(rgba(202, 203, 185, 1), rgba(202, 203, 185, 1));">
+            <div class="container">
+                <div class="row g-4 align-items-center">
+                    <div class="col-lg-7">
+                        <h1 class="mb-4 text-primary">Yangiliklar</h1>
+                        <h1 class="mb-4">Haftalik yangiliklardan xabardor bo'ling</h1>
+                        <p class="text-dark mb-4 pb-2">
+                            Biz sizga har kunlik yangiliklarni yuborishimiz uchun pochta manzilingizni kiriting va biz sizga har kunlik yangiliklarni bildirishnoma ko'rinishida jo'natib turamiz
+                        </p>
+                        <form method="post" action="/newsletter/" class="position-relative mx-auto">
+                            {% csrf_token%}
+                            <input class="form-control w-100 py-3 rounded-pill"name ="email" type="email" placeholder="Pochta manzilingizni kiriting!">
+                            <button type="submit" class="btn btn-primary py-3 px-5 position-absolute rounded-pill text-white h-100" style="top: 0; right: 0;">Obuna bo'lish</button>
+                        </form>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="rounded">
+                            <img src="/static/img/banner-img.jpg" class="img-fluid rounded w-100 rounded" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Banner End -->
+
+
+        <!-- Latest News Start -->
+        <div class="container-fluid latest-news py-5">
+            <div class="container py-5">
+                <h2 class="mb-4">So'ngi yangiliklar</h2>
+                <div class="latest-news-carousel owl-carousel">
+                    {% for article in latest_articles %}
+                    <div class="latest-news-item">
+                        <div class="bg-light rounded">
+                            <div class="rounded-top overflow-hidden">
+                                <img src="{{ article.cover.url }}" class="img-zoomin img-fluid rounded-top w-100" style="height: 200px " alt="News image">
+                            </div>
+                            <div class="d-flex flex-column p-4">
+                                <a href="{% url 'article_details' article.slug %}" class="h4">{{ article.title| truncatechars:35}}</a>
+                                <div class="d-flex justify-content-between">
+                                    <a href="#" class="small text-body link-hover"> Muallif : {{ article.author }}</a>
+                                    <small class="text-body d-block"><i class="fas fa-calendar-alt me-1"></i> {{article.created_at|date:"d.m.Y" }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- Latest News End -->
+
+
+<!-- Main Post Section Start -->
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-4">
+                    <div class="col-lg-7 col-xl-8 mt-0">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img src="{{ top_articles.0.cover.url }}" class="img-fluid rounded img-zoomin w-100" alt="">
+                            <div class="d-flex justify-content-center px-4 position-absolute flex-wrap" style="bottom: 10px; left: 0;">
+                                <a href="#" class="text-white me-3 link-hover"><i class="fa fa-clock"></i> {{ top_articles.0.read_time}} o'qiladi</a>
+                                <a href="#" class="text-white me-3 link-hover"><i class="fa fa-eye"></i> {{top_articles.0.views}} ko'rishlar</a>
+                                <a href="#" class="text-white me-3 link-hover"><i class="fa fa-comment-dots"></i> {{ top_articles.0.comment_set.count}} izohlar</a>
+                                <a href="#" class="text-white link-hover"><i class="fa fa-calendar-day"></i> {{ top_articles.0.created_at| date:"d.m.Y"}}</a>
+                            </div>
+                        </div>
+                        <div class="border-bottom py-3">
+                            <a href="{% url 'article_details' top_articles.0.slug %}"
+                               class="display-4 text-dark mb-0 link-hover">{{ top_articles.0.title| truncatechars:50}}</a>
+                        </div>
+                        <p class="mt-3 mb-4">
+                            {{ top_articles.0.intro}}
+                        </p>
+                        <div class="bg-light p-4 rounded">
+                            <div class="news-2">
+                                <h3 class="mb-4">Ko'p o'qildi</h3>
+                            </div>
+                            <div class="row g-4 align-items-center">
+                                <div class="col-md-6">
+                                    <div class="rounded overflow-hidden">
+                                        <img src="{{ top_articles.1.cover.url }}" class="img-fluid rounded img-zoomin w-100" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="d-flex flex-column">
+                                        <a href="{% url 'article_details' top_articles.1.slug %}" class="h3">{{top_articles.1.title|truncatechars:70}}</a>
+                                        <p class="mb-0 fs-5"><i class="fa fa-clock"> {{ top_articles.1.read_time }} o'qiladi</i> </p>
+                                        <p class="mb-0 fs-5"><i class="fa fa-eye"> {{ top_articles.1.views }}</i></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 col-xl-4">
+                       <div class="bg-light rounded p-4 pt-0">
+                            <div class="row g-4">
+                                <div class="col-12">
+                                    <div class="rounded overflow-hidden">
+                                        <img src=" {{top_articles.2.cover.url}} " class="img-fluid rounded img-zoomin w-100" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-flex flex-column">
+                                        <a href="{%url 'article_details' top_articles.2.slug%}" class="h4 mb-2">{{ top_articles.2.title| truncatechars:50 }}</a>
+                                        <p class="fs-5 mb-0"><i class="fa fa-clock"> {{ top_articles.2.read_time}} o'qiladi</i> </p>
+                                        <p class="fs-5 mb-0"><i class="fa fa-eye"> {{ top_articles.2.views}} ko'rildi</i></p>
+                                    </div>
+                                </div>
+                                {% for article in top_articles|slice:"3:" %}
+                                <div class="col-12">
+                                    <div class="row g-4 align-items-center">
+                                        <div class="col-5">
+                                            <div class="overflow-hidden rounded">
+                                                <img src="{{ article.cover.url }}" class="img-zoomin img-fluid rounded w-100" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-7">
+                                            <div class="features-content d-flex flex-column">
+                                                <a href="{%url 'article_details' article.slug%}" class="h6">{{ article.title|truncatechars:40}}</a>
+                                                <small><i class="fa fa-clock"> {{article.read_time}} o'qiladi</i> </small>
+                                                <small><i class="fa fa-eye"> {{ article.views}}</i></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Post Section End -->
+{% endblock %}
+
+

@@ -1,0 +1,87 @@
+{% extends 'base.html'%}
+{% block content %}
+
+
+        <!-- Contact Us Start -->
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="bg-light rounded p-5">
+                    <div class="row g-4">
+                        <div class="col-lg-5 d-flex align-items-center justify-content-center" style="min-height: 400px;">
+                            <div class="text-center w-100">
+                                <h1 class="mb-4">Umumiy mijozlarga xizmat ko‘rsatish va texnik yordam</h1>
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <form action="" class="mb-4">
+                                <div class="row g-4">
+                                    <div class="col-lg-6">
+                                        <input type="text" class="w-100 form-control border-0 py-3" name="name" placeholder="Ismingizni kiriting!">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="email" class="w-100 form-control border-0 py-3" name="email" placeholder="Pochta manzilingizni kiriting!">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="w-100 form-control border-0 py-3" name="phone" placeholder="Telefon manzilingizni kiriting">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="w-100 form-control border-0 py-3" name="subject" placeholder="Nima mavzuda murojaat qilmoqchisiz?">
+                                    </div>
+                                    <div class="col-12">
+                                        <textarea class="w-100 form-control border-0" rows="6" cols="10" placeholder="Xabarni mana shu yerga kiriting"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="w-100 btn btn-primary form-control py-3" type="submit">Submit Now</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="row g-4">
+                                <div class="col-xl-6">
+                                    <div class="d-flex p-4 rounded bg-white">
+                                        <i class="fas fa-map-marker-alt fa-2x text-primary me-4"></i>
+                                        <div>
+                                            <h4>Manzilimiz</h4>
+                                            <p class="mb-0">{{location}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="d-flex p-4 rounded bg-white">
+                                        <i class="fas fa-envelope fa-2x text-primary me-4"></i>
+                                        <div>
+                                            <h4>Bog'lanish uchun</h4>
+                                            <p class="mb-0">coder.siddiqovsardorbek@example.com</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="d-flex p-4 rounded bg-white">
+                                        <i class="fa fa-phone-alt fa-2x text-primary me-4"></i>
+                                        <div>
+                                            <h4>Bog'lanish uchun telefon raqam</h4>
+                                            <p class="mb-0">+998 99 129 66 77</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <div class="d-flex p-4 rounded bg-white">
+                                        <i class="fa fa-share-alt fa-2x text-primary me-4"></i>
+                                        <div>
+                                            <h4>Share</h4>
+                                            <div class="d-flex">
+                                                <a class="me-3" href="https://t.me/+998991296677"><i class="fab fa-telegram-plane text-dark link-hover"></i></a>
+                                                <a href="https://instagram.com/mr_siddiqov"><i class="fab fa-instagram text-dark link-hover"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Contact Us End -->
+
+
+{% endblock%}
